@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "250520533383",
+    "project_id": "bdsm-78a7d",
+    "storage_bucket": "bdsm-78a7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250520533383:android:7287493056428f05fdbb22",
+        "android_client_info": {
+          "package_name": "com.example.fyp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQectCoR06n6BvmIboH9N5vfoKhGXRQFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
