@@ -14,21 +14,17 @@ class AppUserStore {
     }
   }
 
-   Future<List<AppUser>> fetchUserWhere({required String bloodGroup}) async {
-    var users =<AppUser>[];
+  Future<List<AppUser>> fetchUserWhere({required String bloodGroup}) async {
+    var users = <AppUser>[];
     try {
-      
-
       var snapshot = await _firestore
           .collection(_collection)
           .where('bloodGroup', isEqualTo: bloodGroup)
           .get();
 
-          snapshot.docs.forEach((element) {
-            users.add(AppUser.fromJson(element.data()));
-           });
-
-      
+      for (var element in snapshot.docs) {
+        users.add(AppUser.fromJson(element.data()));
+      }
     } catch (e) {
       print(e);
     }
@@ -36,14 +32,14 @@ class AppUserStore {
     return users;
   }
 
-  // Future<AppUser?> readUserFromStore(String id) async {
-  //   try {
-  //     var doc = await _firestore.collection(_collection).doc(id).get();
-  //     var user = AppUser.fromJson(doc.data()!);
-  //     return user;
-  //   } catch (e) {
-  //     print('error while fetchin data');
-  //     return null;
-  //   }
-  // }
+  Future<AppUser?> readUserFromStore(String id) async {
+    try {
+      var doc = await _firestore.collection(_collection).doc(id).get();
+      var user = AppUser.fromJson(doc.data()!);
+      return user;
+    } catch (e) {
+      print('error while fetchin data');
+      return null;
+    }
+  }
 }

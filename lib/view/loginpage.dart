@@ -19,38 +19,40 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(
-            width: double.infinity,
+
+          //image
+          Image.asset(
+            'images/login.jpg',
+            width: 300
           ),
+
+          const Gap(100),
+          const SizedBox(width: double.infinity),
           //email text field
 
           Container(
-            width: 300,
-            padding: const EdgeInsets.only(left: 20),
-            decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(16)),
-            child: TextField(
-              controller: _controllerLogin.emailController,
-              decoration: const InputDecoration(
-                  border: InputBorder.none, hintText: 'Email'),
-            ),
-          ),
+              width: 300,
+              padding: const EdgeInsets.only(left: 20),
+              decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(16)),
+              child: TextField(
+                  controller: _controllerLogin.emailController,
+                  decoration: const InputDecoration(
+                      border: InputBorder.none, hintText: 'Email'))),
           const Gap(10),
           //password text field
           Container(
-            width: 300,
-            padding: const EdgeInsets.only(left: 20),
-            decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(16)),
-            child: TextField(
-              controller: _controllerLogin.passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                  border: InputBorder.none, hintText: 'Password'),
-            ),
-          ),
+              width: 300,
+              padding: const EdgeInsets.only(left: 20),
+              decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(16)),
+              child: TextField(
+                  controller: _controllerLogin.passwordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                      border: InputBorder.none, hintText: 'Password'))),
           const Gap(10),
 
           //login button
@@ -72,17 +74,14 @@ class _LoginPageState extends State<LoginPage> {
 
           //move to signup page
           GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const SignUpPage(),
-              ));
-            },
-            child: const Text(
-              'Not member yet?',
-              style: TextStyle(color: Colors.blue),
-            ),
-          ),
-          const Gap(100),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SignUpPage(),
+                ));
+              },
+              child: const Text('Not member yet?',
+                  style: TextStyle(color: Colors.blue))),
+          const Gap(50),
         ],
       ),
     );

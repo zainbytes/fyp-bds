@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:fyp/view/donation_code.dart';
 import 'package:fyp/view/healthtips.dart';
+import 'package:fyp/view/myrequests.dart';
 import 'package:fyp/view/mywidgets/homepage/campaigntile.dart';
+import 'package:fyp/view/profile_page.dart';
 import 'package:gap/gap.dart';
 
 class HomepageBody extends StatelessWidget {
@@ -18,7 +19,7 @@ class HomepageBody extends StatelessWidget {
         child: Column(
           children: [
             //request generated info counter
-            Row(
+           const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Column(
@@ -63,7 +64,7 @@ class HomepageBody extends StatelessWidget {
                           color: Colors.green.shade50,
                           borderRadius: BorderRadius.circular(15)),
                       child: Column(children: [
-                        Icon(Icons.tips_and_updates_rounded),
+                        Image.asset('icon/bulbicon.png',height: 40,width: 40,),
                         Text('Health tips'),
                     
                       ],),
@@ -72,18 +73,23 @@ class HomepageBody extends StatelessWidget {
                 ),
                 const Gap(5),
                 Expanded(
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(vertical: screenHeight * .015),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.yellow.shade50,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Column(children: [
-                      Icon(Icons.person),
-                      Text('Profile'),
-
-                    ],),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder:(context) => const ProfilePage(),));
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: screenHeight * .015),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Colors.yellow.shade50,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Column(children: [
+                        Icon(Icons.person),
+                        Text('Profile'),
+                    
+                      ],),
+                    ),
                   ),
                 ),
               ],
@@ -95,34 +101,46 @@ class HomepageBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(vertical: screenHeight * .015),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.red.shade100,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Column(children: [
-                      Icon(Icons.history),
-                      Text('History'),
-
-                    ],),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder:(context) =>const MyRequests(),));
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: screenHeight * .015),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Colors.red.shade100,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Column(children: [
+                        Icon(Icons.history),
+                        Text('My Request'),
+                    
+                      ],),
+                    ),
                   ),
                 ),
                 const Gap(5),
                 Expanded(
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(vertical: screenHeight * .015),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.blue.shade50,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Column(children: [
-                      Icon(Icons.receipt),
-                      Text('Donation code'),
-
-                    ],),
+                  child: GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(context: context, builder: (context){
+                        return DonationCode();
+                      });
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: screenHeight * .015),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Colors.blue.shade50,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Column(children: [
+                        Icon(Icons.receipt),
+                        Text('Donation code'),
+                    
+                      ],),
+                    ),
                   ),
                 ),
               ],

@@ -11,39 +11,54 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  
-  
-  int currentScreen =1;
-  List<Widget> screens =[
-    FindPage(),HomepageBody(),SettingPage()
-  ];
+  int currentScreen = 1;
+  List<Widget> screens = [FindPage(), HomepageBody(), SettingPage()];
 
-  
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       //app bar
-      appBar: AppBar(title: Text('Hello abc'),),
+      appBar: AppBar(
+        title: Text('Hello abc'),
+      ),
 
-      //body 
+      //body
       body: screens[currentScreen],
-
 
       //bottom navigation bar
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (value) {
           setState(() {
-            currentScreen=value;
+            currentScreen = value;
           });
         },
+        indicatorColor: Colors.red.shade400,
         selectedIndex: currentScreen,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        destinations:const [
-          NavigationDestination(icon: Icon(Icons.manage_search_rounded), label: 'Find'),
-          NavigationDestination(icon: Icon(Icons.home_filled), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.settings_rounded), label: 'Setting'),
-        ],),
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        destinations: const [
+          NavigationDestination(
+              icon: Icon(Icons.manage_search_rounded),
+              selectedIcon:
+                  Icon(Icons.manage_search_rounded, color: Colors.white),
+              label: 'Find'),
+          NavigationDestination(
+            icon: Icon(Icons.home_filled),
+            label: 'Home',
+            selectedIcon: Icon(
+              Icons.home_filled,
+              color: Colors.white,
+            ),
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings_rounded),
+            label: 'Setting',
+            selectedIcon: Icon(
+              Icons.settings_rounded,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

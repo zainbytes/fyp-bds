@@ -4,13 +4,19 @@ class BloodRequest {
   String bloodDescription;
   String location;
   String requester;
+  String status;
+  String requestCode;
+  String donor;
 
   BloodRequest(
       {required this.reason,
       required this.blood,
       required this.bloodDescription,
       required this.location,
-      required this.requester});
+      required this.requester,
+      required this.status,
+      required this.requestCode,
+      required this.donor,});
 
   Map<String, dynamic> toJson() {
     return {
@@ -18,7 +24,10 @@ class BloodRequest {
       'blood': blood,
       'bloodDescription': bloodDescription,
       'location': location,
-      'requester':requester
+      'requester':requester,
+      'status':status,
+      'requestCode':requestCode,
+      'donor':donor
     };
   }
 
@@ -28,6 +37,9 @@ class BloodRequest {
         blood: json['blood'],
         bloodDescription: json['bloodDescription'],
         location: json['location'],
-        requester:json['requester']);
+        requester:json['requester'],
+        status:json['status'],
+        requestCode:json['requestCode'],
+        donor: json['donor']);
   }
 }
