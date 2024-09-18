@@ -11,7 +11,7 @@ class CampaignTile extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     return ListTile(
-      titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color: Colors.black),
       contentPadding: EdgeInsets.symmetric(
           horizontal: screenHeight * .03, vertical: screenHeight * .02),
       shape: OutlineInputBorder(

@@ -17,11 +17,12 @@ class RequestStore {
     }
   }
 
-  Future<List<BloodRequest>> getWhere({required String requester}) async {
+  Future<List<BloodRequest>> getWhere({required String requester,required String status}) async {
     var request = <BloodRequest>[];
     var snap = await _firebase
         .collection(_collection)
         .where('requester', isEqualTo: requester)
+        .where('status', isEqualTo: status)
         .get();
     for (var element in snap.docs) {
       request.add(BloodRequest.fromJson(element.data()));
@@ -31,20 +32,21 @@ class RequestStore {
     return request;
   }
 
-  Future<List<BloodRequest>> getWhereDonor({required String donor}) async{
+  Future<List<BloodRequest>> getWhereDonor({required String donor}) async {
     var request = <BloodRequest>[];
-    var rawdata = await _firebase.collection(_collection).where('donor',isEqualTo: donor).get();
+    var rawdata = await _firebase
+        .collection(_collection)
+        .where('donor', isEqualTo: donor)
+        .get();
     for (var element in rawdata.docs) {
       request.add(BloodRequest.fromJson(element.data()));
-      
     }
 
     return request;
-
   }
 
   Future<bool> updateStatus({required String requestCode}) async {
-    var flag=false;
+    var flag = false;
     var docId = '';
     var docStatus = '';
 
@@ -59,14 +61,13 @@ class RequestStore {
     }
 
     if (docId.isNotEmpty && docStatus != 'Completed') {
-      var currentUser=Auth().currentUser!.email;
+      var currentUser = Auth().currentUser!.email;
       await _firebase
           .collection(_collection)
           .doc(docId)
-          .update({'status': 'Completed','donor':currentUser});
-          flag=true;
+          .update({'status': 'Completed', 'donor': currentUser});
+      flag = true;
     }
     return flag;
   }
-  
 }

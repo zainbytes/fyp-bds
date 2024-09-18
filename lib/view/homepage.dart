@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fyp/services/authentication/auth.dart';
+import 'package:fyp/services/firestore/appuser_store.dart';
 import 'package:fyp/view/findpage.dart';
 import 'package:fyp/view/homepagebody.dart';
+import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
 import 'package:fyp/view/settingpage.dart';
 
 class Homepage extends StatefulWidget {
@@ -12,15 +15,27 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   int currentScreen = 1;
-  List<Widget> screens = [FindPage(), HomepageBody(), SettingPage()];
+  List<Widget> screens = [const FindPage(), const HomepageBody(), const SettingPage()];
+  String title='loading.....';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    
+    var uid = Auth().currentUser!.uid;
+    AppUserStore().readUserFromStore(uid).then((user) => setState(() {
+      title=user!.fullName;
+    }));
+  }
 
   @override
   Widget build(BuildContext context) {
+    
+    
     return Scaffold(
+      
       //app bar
-      appBar: AppBar(
-        title: Text('Hello abc'),
-      ),
+      appBar:  CustomAppbar(title: 'Hello $title',),
 
       //body
       body: screens[currentScreen],
@@ -62,3 +77,5 @@ class _HomepageState extends State<Homepage> {
     );
   }
 }
+
+

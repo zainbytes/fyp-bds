@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
+import 'package:fyp/model/appuser.dart';
 import 'package:fyp/services/firestore/appuser_store.dart';
+import 'package:fyp/view/mycolors.dart';
+import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
+import 'package:fyp/view/mywidgets/others/notfound.dart';
+import 'package:gap/gap.dart';
 
 class DonorsPage extends StatefulWidget {
   final String bloodGroup;
@@ -14,43 +19,81 @@ class _DonorsPageState extends State<DonorsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Donors'),),
+        appBar: CustomAppbar(title: "Donors for ${widget.bloodGroup}"),
         body: FutureBuilder(
           //getting list of Appuser
-      future: AppUserStore().fetchUserWhere(bloodGroup: widget.bloodGroup),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState==ConnectionState.done) {
-          if (snapshot.data!.isEmpty) {
-            return Center(child: Text('Nothig to preview'),);
-          } else {
-            return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder:(context, index) {
-              var d = snapshot.data![index];
-            return Container(
-              margin: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.grey.shade300),
-              child: ListTile(
-              leading: CircleAvatar(
-                
-                child: Icon(Icons.person_2_rounded),
-              ),
-              title: Text(d.fullName),
-              subtitle: Text('${d.email} | ${d.phoneNo} | ${d.bloodGroup}'),
-              
-                        ),
-            );
-          },);
-          }
-          
+          future: AppUserStore().fetchUserWhere(bloodGroup: widget.bloodGroup),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.data!.isEmpty) {
+                return const NotFound();
+              } else {
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    var d = snapshot.data![index];
+                    return donorTile(d);
+                  },
+                );
+              }
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ));
+  }
 
-          
-        } else {
-          return Center(child: CircularProgressIndicator(),);
-        }
-      },
-    ));
+  Widget donorTile(AppUser d) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Gap(10),
+        ListTile(
+          onTap: () => bottomSheet(d),
+          titleTextStyle: TextStyle(fontSize: 20,color: angryFlamingo),
+          title: Text(d.fullName),
+          subtitle: Text('Hello, I am available'),
+          trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.red),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Divider(
+            height: 20,
+          ),
+        )
+      ],
+    );
+  }
+
+  Future<dynamic> bottomSheet(AppUser d) {
+    var heading =TextStyle(color: angryFlamingo,fontWeight: FontWeight.bold,fontSize: 18);
+    return showModalBottomSheet(context: context, builder:(context) {
+              return Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Gap(10),
+                    Text('Name:',style: heading,),
+                    ListTile(title: Text(d.fullName),),
+                    Text('Email:',style: heading),
+                    ListTile(title: Text(d.email),trailing: IconButton(onPressed: ()async{
+                      await Clipboard.setData(ClipboardData(text: d.email));
+                    }, icon: Icon(Icons.copy)),),
+                    Text('Phone No:',style: heading),
+                    ListTile(title: Text(d.phoneNo),trailing: IconButton(onPressed: ()async{
+                      await Clipboard.setData(ClipboardData(text: d.phoneNo));
+                    }, icon: Icon(Icons.copy)),),
+                    Text('Description:',style: heading),
+                    ListTile(title: Text(d.bloodDescription),),
+                    const Gap(10)
+                
+                  ],
+                ),
+              );
+            },);
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/controller/login_controller.dart';
+import 'package:fyp/services/validation/validation.dart';
+import 'package:fyp/view/mywidgets/homepage/my_textfield.dart';
 import 'package:fyp/view/signuppage.dart';
 import 'package:gap/gap.dart';
 
@@ -12,78 +14,109 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _controllerLogin = ControllerLogin();
+  final _formkey = GlobalKey<FormState>();
+  bool _loginClicked = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+      body: Form(
+        autovalidateMode: _loginClicked
+            ? AutovalidateMode.onUserInteraction
+            : AutovalidateMode.disabled,
+        key: _formkey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            //image
+            Image.asset('assets/images/login.jpg', width: 300),
 
-          //image
-          Image.asset(
-            'images/login.jpg',
-            width: 300
-          ),
+            const Gap(100),
+            const SizedBox(width: double.infinity),
+            //email text field
 
-          const Gap(100),
-          const SizedBox(width: double.infinity),
-          //email text field
+            DecoratedTextField(
+              controller: _controllerLogin.emailController,
+              label: "Email",
+              icon:const Icon(Icons.email_rounded),
+              validator: (value) => emailValidation(value),
+            ),
+            const Gap(10),
+            //password text field
+            DecoratedTextField(
+              controller: _controllerLogin.passwordController,
+              label: "Password",
+              icon:const Icon(Icons.password_rounded),
+              obscureText: true,
+              validator: (value) => passwordValidation(value),
+            ),
+            const Gap(10),
 
-          Container(
-              width: 300,
-              padding: const EdgeInsets.only(left: 20),
-              decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(16)),
-              child: TextField(
-                  controller: _controllerLogin.emailController,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none, hintText: 'Email'))),
-          const Gap(10),
-          //password text field
-          Container(
-              width: 300,
-              padding: const EdgeInsets.only(left: 20),
-              decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(16)),
-              child: TextField(
-                  controller: _controllerLogin.passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none, hintText: 'Password'))),
-          const Gap(10),
+            //login button
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () async {
+                    //signup user
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const SignUpPage(),
+                    ));
+                  },
+                  child: DecoratedButton(
+                    label: "SignUp",
+                  ),
+                ),
+                const Gap(20),
+                GestureDetector(
+                  onTap: () async {
+                    if (_formkey.currentState!.validate()) {
+                      //login user
+                      await _controllerLogin.loginUser();
+                    } else {
+                      changeAutoValidation();
+                    }
+                  },
+                  child: DecoratedButton(
+                    label: "Login",
+                  ),
+                ),
+              ],
+            ),
 
-          //login button
-          GestureDetector(
-            onTap: () async {
-              //login user
-              await _controllerLogin.loginUser();
-            },
-            child: Container(
-                width: 300,
-                height: 45,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(15)),
-                child: const Text('Login')),
-          ),
-          const Gap(10),
-
-          //move to signup page
-          GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const SignUpPage(),
-                ));
-              },
-              child: const Text('Not member yet?',
-                  style: TextStyle(color: Colors.blue))),
-          const Gap(50),
-        ],
+            const Gap(50),
+          ],
+        ),
       ),
     );
+  }
+
+  void changeAutoValidation() {
+    return setState(() {
+      _loginClicked = true;
+    });
+  }
+}
+
+class DecoratedButton extends StatelessWidget {
+  final String label;
+  const DecoratedButton({
+    required this.label,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: 120,
+        height: 45,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: Colors.red, borderRadius: BorderRadius.circular(20)),
+        child: Text(
+          label,
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+        ));
   }
 }

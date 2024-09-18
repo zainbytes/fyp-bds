@@ -42,4 +42,15 @@ class AppUserStore {
       return null;
     }
   }
+
+  Future<void> updateUser(String id,Map data) async{
+
+    var user= await readUserFromStore(id);
+    user!.fullName =data['name'];
+    user.bloodGroup =data['blood'];
+    user.phoneNo =data['phone'];
+    user.bloodDescription =data['description'];
+
+    await _firestore.collection(_collection).doc(id).update(user.toJson());
+  }
 }
