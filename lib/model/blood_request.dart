@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class BloodRequest {
   String reason;
   String blood;
@@ -7,6 +11,8 @@ class BloodRequest {
   String status;
   String requestCode;
   String donor;
+  Timestamp createdOn;
+  Timestamp? completedOn;
 
   BloodRequest(
       {required this.reason,
@@ -16,6 +22,8 @@ class BloodRequest {
       required this.requester,
       required this.status,
       required this.requestCode,
+      required this.createdOn,
+      this.completedOn,
       required this.donor,});
 
   Map<String, dynamic> toJson() {
@@ -27,6 +35,8 @@ class BloodRequest {
       'requester':requester,
       'status':status,
       'requestCode':requestCode,
+      'createdOn':createdOn,
+      'completedOn':completedOn,
       'donor':donor
     };
   }
@@ -40,6 +50,8 @@ class BloodRequest {
         requester:json['requester'],
         status:json['status'],
         requestCode:json['requestCode'],
+        createdOn:json['createdOn']??Timestamp.now(),
+        completedOn:json['completedOn'],
         donor: json['donor']);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/view/mycolors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String  title;
@@ -19,7 +20,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       actions: actions,
     
-      title: Text(title),
+      title: FittedBox(child: Text(title,style: GoogleFonts.outfit(textStyle: const TextStyle(fontWeight: FontWeight.w700)),)),
       centerTitle: centerTitle??true,
       backgroundColor: angryFlamingo,
       foregroundColor: Colors.white,

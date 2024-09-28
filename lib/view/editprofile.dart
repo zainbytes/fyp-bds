@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fyp/controller/profile_controller.dart';
 import 'package:fyp/model/appuser.dart';
 import 'package:fyp/services/shared_pref/shared_helper.dart';
 import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
+import 'package:fyp/view/mywidgets/others/bottomsheet_blood.dart';
 import 'package:fyp/view/mywidgets/others/pickavatar.dart';
 import 'package:gap/gap.dart';
 import 'package:random_avatar/random_avatar.dart';
@@ -18,16 +18,16 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   String avatar = 'a';
 
-
   @override
   void initState() {
     loadAvatar();
     super.initState();
   }
 
-  loadAvatar() async{
-    avatar  = await SharedHelper().getAvatar()??'a';
+  loadAvatar() async {
+    avatar = await SharedHelper().getAvatar() ?? 'a';
   }
+
   @override
   Widget build(BuildContext context) {
     var profileController = ProfileController();
@@ -40,7 +40,7 @@ class _EditProfileState extends State<EditProfile> {
             onPressed: () async {
               await profileController.updateProfile();
               await SharedHelper().setAvatar(avatar);
-              
+
               if (context.mounted) {
                 Navigator.of(context).pop('sucess');
               }
@@ -93,6 +93,13 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 const Gap(20),
                 EditTextfield(
+                  readOnly: true,
+                  ontap: () async {
+                    var result = await showModalBottomSheet(
+                        context: context,
+                        builder: (context) => const BottomSheetForBlood());
+                    profileController.bloodEditor.text = result ?? 'B+';
+                  },
                   textController: profileController.bloodEditor,
                   label: "Blod Group",
                 ),
@@ -138,9 +145,13 @@ class _EditProfileState extends State<EditProfile> {
 class EditTextfield extends StatelessWidget {
   final String label;
   final TextEditingController textController;
+  final VoidCallback? ontap;
+  final bool? readOnly;
   const EditTextfield({
     required this.label,
     required this.textController,
+    this.ontap,
+    this.readOnly,
     super.key,
   });
 
@@ -149,6 +160,8 @@ class EditTextfield extends StatelessWidget {
     return SizedBox(
         width: 300,
         child: TextField(
+          readOnly: readOnly ?? false,
+          onTap: ontap,
           controller: textController,
           decoration: InputDecoration(
               floatingLabelStyle: TextStyle(color: Colors.red),

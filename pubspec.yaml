@@ -13,9 +13,13 @@ dependencies:
   firebase_storage: ^12.2.0
   flutter:
     sdk: flutter
+  flutter_map: ^7.0.2
+  flutter_map_location_marker: ^9.0.0
   gap: ^3.0.1
+  geolocator: ^12.0.0
   google_fonts: ^6.2.0
   introduction_screen: ^3.1.14
+  latlong2: ^0.9.1
   random_avatar: ^0.0.8
   shared_preferences: ^2.2.3
 

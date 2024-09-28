@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp/model/blood_request.dart';
 import 'package:fyp/services/authentication/auth.dart';
 import 'package:fyp/services/firestore/request_store.dart';
 import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
+import 'package:fyp/view/mywidgets/others/helper_func.dart';
 import 'package:fyp/view/mywidgets/others/notfound.dart';
 
 class CompletedRequest extends StatelessWidget {
@@ -12,7 +14,7 @@ class CompletedRequest extends StatelessWidget {
   Widget build(BuildContext context) {
     var email = Auth().currentUser!.email;
     return Scaffold(
-      appBar: CustomAppbar(title: 'Completed Requests'),
+      appBar:const CustomAppbar(title: 'Completed Requests'),
       body: FutureBuilder(
         future: RequestStore().getWhere(requester: email!, status: 'Completed'),
         builder: (context, snapshot) {
@@ -62,7 +64,10 @@ class CompletedRequest extends StatelessWidget {
         title: Text(request.reason),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [Text(request.location), Text('Donor: ${request.donor}')],
+          children: [
+            Text('Created On: ${dateToString(request.createdOn)}'),
+            Text('Completed On: ${dateToString(request.completedOn)}'), 
+            Text('Donor: ${request.donor}')],
         ),
         trailing: Container(
           height: 25,
@@ -80,3 +85,4 @@ class CompletedRequest extends StatelessWidget {
     );
   }
 }
+

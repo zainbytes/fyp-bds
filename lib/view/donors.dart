@@ -77,16 +77,23 @@ class _DonorsPageState extends State<DonorsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Gap(10),
+                    //name
                     Text('Name:',style: heading,),
                     ListTile(title: Text(d.fullName),),
+
+                    //email
                     Text('Email:',style: heading),
                     ListTile(title: Text(d.email),trailing: IconButton(onPressed: ()async{
                       await Clipboard.setData(ClipboardData(text: d.email));
                     }, icon: Icon(Icons.copy)),),
+
+                    //phone no
                     Text('Phone No:',style: heading),
                     ListTile(title: Text(d.phoneNo),trailing: IconButton(onPressed: ()async{
                       await Clipboard.setData(ClipboardData(text: d.phoneNo));
                     }, icon: Icon(Icons.copy)),),
+
+                    //description
                     Text('Description:',style: heading),
                     ListTile(title: Text(d.bloodDescription),),
                     const Gap(10)

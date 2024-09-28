@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp/model/blood_request.dart';
 import 'package:fyp/services/authentication/auth.dart';
@@ -24,17 +25,19 @@ class ControllerBloodRequest {
         requester: Auth().currentUser!.email!,
         status: 'Active',
         requestCode: _generateRandomCode(),
+        createdOn: Timestamp.now(),
         donor:'null');
 
-        //print(Auth().currentUser);
-
+      
+    //save request to database
     await RequestStore().saveToFirestore(req);
-    await AppUserStore().fetchUserWhere(bloodGroup:bloodController.text);
+
+    
   }
 
   String _generateRandomCode(){
       var length =8;
-      const chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
       Random rnd = Random.secure();
 
       return String.fromCharCodes(Iterable.generate(

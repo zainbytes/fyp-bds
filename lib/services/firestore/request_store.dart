@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fyp/model/blood_request.dart';
 import 'package:fyp/services/authentication/auth.dart';
@@ -17,7 +16,8 @@ class RequestStore {
     }
   }
 
-  Future<List<BloodRequest>> getWhere({required String requester,required String status}) async {
+  Future<List<BloodRequest>> getWhere(
+      {required String requester, required String status}) async {
     var request = <BloodRequest>[];
     var snap = await _firebase
         .collection(_collection)
@@ -62,12 +62,27 @@ class RequestStore {
 
     if (docId.isNotEmpty && docStatus != 'Completed') {
       var currentUser = Auth().currentUser!.email;
-      await _firebase
-          .collection(_collection)
-          .doc(docId)
-          .update({'status': 'Completed', 'donor': currentUser});
+      await _firebase.collection(_collection).doc(docId).update({
+        'status': 'Completed',
+        'donor': currentUser,
+        'completedOn': Timestamp.now()
+      });
       flag = true;
     }
     return flag;
+  }
+
+  Future<Map<dynamic,int>> getCount() async {
+    var totalCount = await _firebase.collection(_collection).count().get();
+    var completedCount = await _firebase
+        .collection(_collection)
+        .where('status', isEqualTo: 'Completed')
+        .count()
+        .get();
+
+        return {
+          'Total':totalCount.count??0,
+          'Completed': completedCount.count??0
+          };
   }
 }

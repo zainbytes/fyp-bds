@@ -61,6 +61,6 @@ class _BottomSheetForBloodState extends State<BottomSheetForBlood> {
                                         Navigator.of(context).pop(bloodGroup[_value]);
                                       })).toList())),
                     ],
-                  );;
+                  );
   }
 }

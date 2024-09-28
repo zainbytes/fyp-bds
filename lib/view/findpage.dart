@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/controller/bloodrequest_controller.dart';
+import 'package:fyp/services/validation/validation.dart';
 import 'package:fyp/view/donors.dart';
 import 'package:fyp/view/mycolors.dart';
+import 'package:fyp/view/mywidgets/others/helper_func.dart';
+import 'package:fyp/view/pick_location.dart';
 import 'package:gap/gap.dart';
 
 class FindPage extends StatefulWidget {
@@ -23,6 +26,7 @@ class _FindPageState extends State<FindPage> {
 
   var requestCont = ControllerBloodRequest();
 
+
   //form key
   final _formkey = GlobalKey<FormState>();
   @override
@@ -36,21 +40,33 @@ class _FindPageState extends State<FindPage> {
                   //means not the last step
                   _stepIndex < 3
                       ? TextButton(
-                          onPressed: details.onStepContinue, child: Text('Next'))
+                          onPressed: details.onStepContinue,
+                          child: Text(
+                            'Next',
+                            style: TextStyle(color: Colors.red.shade300),
+                          ))
                       //when the final step
                       : TextButton(
-                        style: ButtonStyle(
-                          foregroundColor: MaterialStatePropertyAll(Colors.white),
-                          backgroundColor: MaterialStatePropertyAll(checkboxFlag?Colors.red:Colors.red.shade300)),
+                          style: ButtonStyle(
+                              foregroundColor:
+                                  MaterialStatePropertyAll(Colors.white),
+                              backgroundColor: MaterialStatePropertyAll(
+                                  checkboxFlag
+                                      ? Colors.red
+                                      : Colors.red.shade300)),
                           onPressed: checkboxFlag
                               ? () {
                                   // if checkbox set to ture run this code
                                   if (_formkey.currentState!.validate()) {
                                     requestCont.saveToDatabase();
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Request submited')));
-          
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text('Request submited')));
+
                                     //passing bloodgroup to donor page so that it can find user with same blood
-                                    Navigator.of(context).push(MaterialPageRoute(
+
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
                                       builder: (context) => DonorsPage(
                                         bloodGroup:
                                             requestCont.bloodController.text,
@@ -61,7 +77,11 @@ class _FindPageState extends State<FindPage> {
                               : null,
                           child: const Text('Submit')),
                   TextButton(
-                      onPressed: details.onStepCancel, child: Text('cancel'))
+                      onPressed: details.onStepCancel,
+                      child: Text(
+                        'cancel',
+                        style: TextStyle(color: Colors.grey.shade800),
+                      ))
                 ]);
               },
               connectorColor: MaterialStatePropertyAll(Colors.red),
@@ -86,14 +106,10 @@ class _FindPageState extends State<FindPage> {
                     title: Text('Reason'),
                     content: DecoratedContainer(
                         child: TextFormField(
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "This can't be empty";
-                              }
-                              return null;
-                            },
+                            validator: (value) =>emptyValidation(value),
                             controller: requestCont.reasonController,
                             decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.text_snippet_rounded),
                                 border: InputBorder.none,
                                 hintText: 'Why do you need Blood')))),
                 //blood releated details
@@ -112,7 +128,11 @@ class _FindPageState extends State<FindPage> {
                                   (index) => ChoiceChip(
                                       label: Text(bloodGroup.elementAt(index)),
                                       selectedColor: angryFlamingo,
-                                      labelStyle: TextStyle(fontWeight: FontWeight.bold,color:_value==index? Colors.white:Colors.black),
+                                      labelStyle: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: _value == index
+                                              ? Colors.white
+                                              : Colors.black),
                                       checkmarkColor: Colors.white,
                                       selected: _value == index,
                                       onSelected: (bool selected) {
@@ -125,14 +145,10 @@ class _FindPageState extends State<FindPage> {
                       const Gap(10),
                       DecoratedContainer(
                           child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return "This can't be empty";
-                                }
-                                return null;
-                              },
+                              validator: (value) =>emptyValidation(value),
                               controller: requestCont.bloodDescriptionContoller,
                               decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.description_rounded),
                                   border: InputBorder.none,
                                   hintText: 'Other Blood releated detail')))
                     ])),
@@ -141,15 +157,16 @@ class _FindPageState extends State<FindPage> {
                     title: Text('Location'),
                     content: DecoratedContainer(
                         child: TextFormField(
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "This can't be empty";
-                              }
-                              return null;
-                            },
+                          onTap: () async{
+                           var position= await Navigator.of(context).push(MaterialPageRoute(builder:(context) =>const LocationPicker(),));
+                           requestCont.locationController.text=position??'null';
+                           latlonParse(position);
+                          },
+                            readOnly: true,
+                            validator: (value) =>emptyValidation(value),
                             controller: requestCont.locationController,
                             decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.location_pin),
+                                prefixIcon: Icon(Icons.location_pin),
                                 border: InputBorder.none,
                                 hintText: 'Location')))),
                 //accepting terms and submit request
@@ -181,11 +198,11 @@ class DecoratedContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: 350,
-        padding: const EdgeInsets.only(left: 20),
+        padding: const EdgeInsets.only(right: 10),
         decoration: BoxDecoration(
-          border: Border.all(width: 2,color: angryFlamingo),
-            borderRadius: BorderRadius.circular(30),
-            ),
+          border: Border.all(width: 2, color: angryFlamingo),
+          borderRadius: BorderRadius.circular(20),
+        ),
         child: child);
   }
 }

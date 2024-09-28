@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fyp/controller/profile_controller.dart';
 import 'package:fyp/model/appuser.dart';
 import 'package:fyp/services/shared_pref/shared_helper.dart';
-import 'package:fyp/view/editprofile.dart';
 import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
 import 'package:fyp/view/mywidgets/others/donationrecord.dart';
-import 'package:fyp/view/mywidgets/others/notfound.dart';
 import 'package:gap/gap.dart';
 import 'package:random_avatar/random_avatar.dart';
 
@@ -67,12 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: ListTile(
                             //fetch record from database and show to user
                             onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const DonationRecord();
-                                },
-                              );
+                              Navigator.push(context, MaterialPageRoute(builder:(context) => const DonationRecord(),));
                             },
                             title: const Text('Donations record'))),
                     const Gap(20),

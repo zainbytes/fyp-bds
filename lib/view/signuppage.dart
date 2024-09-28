@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/controller/signup_controller.dart';
 import 'package:fyp/services/validation/validation.dart';
-import 'package:fyp/view/mycolors.dart';
 import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
 import 'package:fyp/view/mywidgets/homepage/my_textfield.dart';
 import 'package:fyp/view/mywidgets/others/bottomsheet_blood.dart';

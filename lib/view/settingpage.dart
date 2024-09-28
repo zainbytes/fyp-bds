@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/services/authentication/auth.dart';
 import 'package:fyp/view/editprofile.dart';
+import 'package:fyp/view/pick_location.dart';
 import 'package:gap/gap.dart';
 
 class SettingPage extends StatefulWidget {
@@ -32,7 +33,10 @@ class _SettingPageState extends State<SettingPage> {
             trailing: Icons.arrow_forward_ios,
             onTap: () {
               Auth().signOut();
-            })
+            }),
+            const Gap(30),
+
+            
       ],
     );
   }
