@@ -24,18 +24,18 @@ class _HealthTipsPageState extends State<HealthTipsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       
-      appBar: CustomAppbar(title: 'Health tips'),
+      appBar: const CustomAppbar(title: 'Health tips'),
       body:IntroductionScreen(
       dotsDecorator: DotsDecorator(
         activeColor: Colors.red,
-        size:  Size.square(9),
-        activeSize: Size(18, 9),
+        size:  const Size.square(9),
+        activeSize: const Size(18, 9),
         activeShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5)
         )
       ),
       showDoneButton: true,
-      done: Text('Done'),
+      done: const Text('Done'),
       onDone: () => Navigator.of(context).pop(),
       showNextButton: true,
       next:const Icon(Icons.arrow_forward,color: Colors.red,),
@@ -52,7 +52,7 @@ class _HealthTipsPageState extends State<HealthTipsPage> {
                 'A well- balanced diet plays a pivotal role in maintaining optimal blood health. Include a variety of nutrient-rich foods in your meals, such as fruits, vegetables, whole grains, lean proteins, and healthy fats.'),
         PageViewModel(
             decoration: customDecoration,
-            image: Image(image: AssetImage('assets/images/hydrated.jpg')),
+            image: const Image(image: AssetImage('assets/images/hydrated.jpg')),
             title: 'Stay Hydrated',
             body:
                 'Adequate hydration is crucial for blood health. Water helps in maintaining the viscosity of blood, allowing it to flow smoothly through blood vessels.Aim to drink at least eight glasses of water per day.'),

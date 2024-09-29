@@ -10,8 +10,7 @@ Future<void> main() async {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
   } catch (e) {
-    print(e);
-    
+    //print(e);
   }
 
   runApp(const MainApp());
@@ -23,8 +22,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: WidgetTree(),
-    );
+        debugShowCheckedModeBanner: false,
+        home: WidgetTree());
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/services/authentication/auth.dart';
 import 'package:fyp/view/editprofile.dart';
-import 'package:fyp/view/pick_location.dart';
+import 'package:fyp/view/mycolors.dart';
 import 'package:gap/gap.dart';
 
 class SettingPage extends StatefulWidget {
@@ -26,7 +26,7 @@ class _SettingPageState extends State<SettingPage> {
                 builder: (context) => const EditProfile(),
               ));
             }),
-        const Gap(30),
+        const Gap(20),
         TileForSettingPage(
             title: "Logout",
             leading: Icons.logout,
@@ -34,7 +34,7 @@ class _SettingPageState extends State<SettingPage> {
             onTap: () {
               Auth().signOut();
             }),
-            const Gap(30),
+            const Gap(20),
 
             
       ],
@@ -58,13 +58,13 @@ class TileForSettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      padding: EdgeInsets.symmetric(vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-          color: Colors.grey.shade200, borderRadius: BorderRadius.circular(20)),
+          color: Colors.grey.shade200, borderRadius: BorderRadius.circular(15)),
       child: ListTile(
         onTap: onTap,
-        leading: Icon(leading),
+        leading: Icon(leading,color: angryFlamingo,),
         title: Text(title),
         trailing: Icon(trailing),
       ),

@@ -28,7 +28,7 @@ class ViewMap extends StatelessWidget {
                 point: location,
                 width: 80,
                 height: 80,
-                child: Icon(
+                child: const Icon(
                   Icons.location_pin,
                   color: Colors.red,
                   size: 50,

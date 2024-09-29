@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/controller/login_controller.dart';
 import 'package:fyp/services/validation/validation.dart';
+import 'package:fyp/view/mycolors.dart';
 import 'package:fyp/view/mywidgets/homepage/my_textfield.dart';
 import 'package:fyp/view/signuppage.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,68 +26,76 @@ class _LoginPageState extends State<LoginPage> {
             ? AutovalidateMode.onUserInteraction
             : AutovalidateMode.disabled,
         key: _formkey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            //image
-            Image.asset('assets/images/login.jpg', width: 300),
-
-            const Gap(100),
-            const SizedBox(width: double.infinity),
-            //email text field
-
-            DecoratedTextField(
-              controller: _controllerLogin.emailController,
-              label: "Email",
-              icon:const Icon(Icons.email_rounded),
-              validator: (value) => emailValidation(value),
-            ),
-            const Gap(10),
-            //password text field
-            DecoratedTextField(
-              controller: _controllerLogin.passwordController,
-              label: "Password",
-              icon:const Icon(Icons.password_rounded),
-              obscureText: true,
-              validator: (value) => passwordValidation(value),
-            ),
-            const Gap(10),
-
-            //login button
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () async {
-                    //signup user
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SignUpPage(),
-                    ));
-                  },
-                  child: DecoratedButton(
-                    label: "SignUp",
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+          
+              Text('Blood Bridge',style: GoogleFonts.outfit(textStyle: TextStyle(
+                fontSize: 42,
+                color: angryFlamingo,
+                fontWeight: FontWeight.w700)),),
+              const Gap(50),
+              //image
+              Image.asset('assets/images/login.jpg', width: 300),
+          
+              const Gap(100),
+              const SizedBox(width: double.infinity),
+              //email text field
+          
+              DecoratedTextField(
+                controller: _controllerLogin.emailController,
+                label: "Email",
+                icon:const Icon(Icons.email_rounded),
+                validator: (value) => emailValidation(value),
+              ),
+              const Gap(10),
+              //password text field
+              DecoratedTextField(
+                controller: _controllerLogin.passwordController,
+                label: "Password",
+                icon:const Icon(Icons.password_rounded),
+                obscureText: true,
+                validator: (value) => passwordValidation(value),
+              ),
+              const Gap(10),
+          
+              //login button
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      //signup user
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SignUpPage(),
+                      ));
+                    },
+                    child: const DecoratedButton(
+                      label: "SignUp",
+                    ),
                   ),
-                ),
-                const Gap(20),
-                GestureDetector(
-                  onTap: () async {
-                    if (_formkey.currentState!.validate()) {
-                      //login user
-                      await _controllerLogin.loginUser();
-                    } else {
-                      changeAutoValidation();
-                    }
-                  },
-                  child: DecoratedButton(
-                    label: "Login",
+                  const Gap(20),
+                  GestureDetector(
+                    onTap: () async {
+                      if (_formkey.currentState!.validate()) {
+                        //login user
+                        await _controllerLogin.loginUser();
+                      } else {
+                        changeAutoValidation();
+                      }
+                    },
+                    child: const DecoratedButton(
+                      label: "Login",
+                    ),
                   ),
-                ),
-              ],
-            ),
-
-            const Gap(50),
-          ],
+                ],
+              ),
+          
+              const Gap(50),
+            ],
+          ),
         ),
       ),
     );

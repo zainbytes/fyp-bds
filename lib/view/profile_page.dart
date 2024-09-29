@@ -3,6 +3,7 @@ import 'package:fyp/controller/profile_controller.dart';
 import 'package:fyp/model/appuser.dart';
 import 'package:fyp/services/shared_pref/shared_helper.dart';
 import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
+import 'package:fyp/view/mywidgets/others/circular_indicator.dart';
 import 'package:fyp/view/mywidgets/others/donationrecord.dart';
 import 'package:gap/gap.dart';
 import 'package:random_avatar/random_avatar.dart';
@@ -30,7 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppbar(title: 'Profile'),
+        appBar: const CustomAppbar(title: 'Profile'),
         //body
         body: FutureBuilder(
             future: ProfileController().getCurrentUser(),
@@ -38,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
               if (snapshot.connectionState == ConnectionState.done) {
                 var currentUser = snapshot.data;
                 if (currentUser == null) {
-                  return Center(
+                  return const Center(
                     child: Text('error'),
                   );
                 } else {
@@ -54,13 +55,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     //contact info
                     contactInfo(currentUser),
 
-                    Gap(20),
+                    const Gap(20),
 
                     //blood detail
                     bloodDetail(currentUser),
 
                     //donation record
-                    Gap(20),
+                    const Gap(20),
                     DecoratedContainerForTile(
                         child: ListTile(
                             //fetch record from database and show to user
@@ -79,7 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
               //while the data is loading show this
               else {
-                return const Center(child: CircularProgressIndicator());
+                return const RedCircularProgress();
               }
             }));
   }
@@ -87,13 +88,13 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget bloodDetail(AppUser currentUser) {
     return DecoratedContainerForTile(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text('Blood info',
+      const Text('Blood info',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-      Gap(10),
+      const Gap(10),
       ExpansionTile(
           expandedAlignment: Alignment.centerLeft,
           shape: InputBorder.none,
-          leading: Icon(
+          leading: const Icon(
             Icons.bloodtype,
             color: Colors.red,
           ),
@@ -109,21 +110,21 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget contactInfo(AppUser currentUser) {
     return DecoratedContainerForTile(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text('Contact info',
+      const Text('Contact info',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-      Gap(10),
+      const Gap(10),
       ListTile(
-        leading: Icon(Icons.phone),
+        leading: const Icon(Icons.phone),
         title: Text(currentUser.phoneNo),
       ),
-      ListTile(leading: Icon(Icons.email), title: Text(currentUser.email))
+      ListTile(leading: const Icon(Icons.email), title: Text(currentUser.email))
     ]));
   }
 
   Widget fullname(AppUser currentUser) {
     return Text(
       currentUser.fullName,
-      style: TextStyle(fontSize: 24),
+      style: const TextStyle(fontSize: 24),
     );
   }
 

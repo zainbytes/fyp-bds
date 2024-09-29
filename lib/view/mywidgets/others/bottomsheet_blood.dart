@@ -28,7 +28,7 @@ class _BottomSheetForBloodState extends State<BottomSheetForBlood> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Gap(20),
-                      Padding(
+                      const Padding(
                           padding: EdgeInsets.only(left: 20),
                           child: Text(
                             'Choose blood type',

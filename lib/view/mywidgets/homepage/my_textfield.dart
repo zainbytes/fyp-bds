@@ -42,7 +42,7 @@ class DecoratedTextField extends StatelessWidget {
             
             decoration: InputDecoration(
                 
-                prefixIcon: icon ?? Icon(Icons.abc_rounded),
+                prefixIcon: icon ?? const Icon(Icons.abc_rounded),
                 border: InputBorder.none,
                 hintText: label)));
   }

@@ -11,7 +11,7 @@ class ControllerSignUp {
   var bloodDescriptionContoller = TextEditingController();
   var passwordController = TextEditingController();
 
-  createAccount() async {
+  Future createAccount() async {
     var user = AppUser(
         fullName: fulNameController.text,
         email: emailController.text,

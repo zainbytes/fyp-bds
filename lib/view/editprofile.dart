@@ -4,6 +4,7 @@ import 'package:fyp/model/appuser.dart';
 import 'package:fyp/services/shared_pref/shared_helper.dart';
 import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
 import 'package:fyp/view/mywidgets/others/bottomsheet_blood.dart';
+import 'package:fyp/view/mywidgets/others/circular_indicator.dart';
 import 'package:fyp/view/mywidgets/others/pickavatar.dart';
 import 'package:gap/gap.dart';
 import 'package:random_avatar/random_avatar.dart';
@@ -111,9 +112,7 @@ class _EditProfileState extends State<EditProfile> {
               ],
             );
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const RedCircularProgress();
           }
         },
       ),
@@ -134,10 +133,10 @@ class _EditProfileState extends State<EditProfile> {
           style: ButtonStyle(
               padding: const MaterialStatePropertyAll(
                   EdgeInsets.symmetric(horizontal: 20, vertical: 15)),
-              foregroundColor: MaterialStatePropertyAll(Colors.red),
+              foregroundColor:const MaterialStatePropertyAll(Colors.red),
               backgroundColor: MaterialStatePropertyAll(Colors.red.shade100)),
           onPressed: onPressed,
-          child: Text('Save')),
+          child: const Text('Save')),
     );
   }
 }
@@ -164,11 +163,11 @@ class EditTextfield extends StatelessWidget {
           onTap: ontap,
           controller: textController,
           decoration: InputDecoration(
-              floatingLabelStyle: TextStyle(color: Colors.red),
+              floatingLabelStyle: const TextStyle(color: Colors.red),
               labelText: label,
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                   borderSide: BorderSide(width: 3, color: Colors.black)),
-              focusedBorder: OutlineInputBorder(
+              focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(width: 3, color: Colors.red))),
         ));
   }

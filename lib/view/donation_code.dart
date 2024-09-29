@@ -28,7 +28,7 @@ class _DonationCodeState extends State<DonationCode> {
               borderRadius: BorderRadius.circular(20)),
           child: TextField(
             controller: codeController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 border: InputBorder.none, hintText: 'Code here'),
           ),
         ),
@@ -36,7 +36,7 @@ class _DonationCodeState extends State<DonationCode> {
 
         Visibility(
             visible: showError,
-            child: Text(
+            child: const Text(
               'Code is not correct or already used.',
               style: TextStyle(color: Colors.red),
             )),

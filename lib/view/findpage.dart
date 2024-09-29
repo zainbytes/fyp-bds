@@ -49,7 +49,7 @@ class _FindPageState extends State<FindPage> {
                       : TextButton(
                           style: ButtonStyle(
                               foregroundColor:
-                                  MaterialStatePropertyAll(Colors.white),
+                                  const MaterialStatePropertyAll(Colors.white),
                               backgroundColor: MaterialStatePropertyAll(
                                   checkboxFlag
                                       ? Colors.red
@@ -60,7 +60,7 @@ class _FindPageState extends State<FindPage> {
                                   if (_formkey.currentState!.validate()) {
                                     requestCont.saveToDatabase();
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
+                                        const SnackBar(
                                             content: Text('Request submited')));
 
                                     //passing bloodgroup to donor page so that it can find user with same blood
@@ -84,7 +84,7 @@ class _FindPageState extends State<FindPage> {
                       ))
                 ]);
               },
-              connectorColor: MaterialStatePropertyAll(Colors.red),
+              connectorColor: const MaterialStatePropertyAll(Colors.red),
               currentStep: _stepIndex,
               onStepCancel: () {
                 if (_stepIndex > 0) {
@@ -103,18 +103,18 @@ class _FindPageState extends State<FindPage> {
               steps: [
                 //reason for blood
                 Step(
-                    title: Text('Reason'),
+                    title: const Text('Reason'),
                     content: DecoratedContainer(
                         child: TextFormField(
                             validator: (value) =>emptyValidation(value),
                             controller: requestCont.reasonController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.text_snippet_rounded),
                                 border: InputBorder.none,
                                 hintText: 'Why do you need Blood')))),
                 //blood releated details
                 Step(
-                    title: Text('Blood details'),
+                    title: const Text('Blood details'),
                     content: Column(children: [
                       //blood selection chip
                       Container(
@@ -147,14 +147,14 @@ class _FindPageState extends State<FindPage> {
                           child: TextFormField(
                               validator: (value) =>emptyValidation(value),
                               controller: requestCont.bloodDescriptionContoller,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.description_rounded),
                                   border: InputBorder.none,
                                   hintText: 'Other Blood releated detail')))
                     ])),
                 //location where blood needed
                 Step(
-                    title: Text('Location'),
+                    title: const Text('Location'),
                     content: DecoratedContainer(
                         child: TextFormField(
                           onTap: () async{
@@ -165,13 +165,13 @@ class _FindPageState extends State<FindPage> {
                             readOnly: true,
                             validator: (value) =>emptyValidation(value),
                             controller: requestCont.locationController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.location_pin),
                                 border: InputBorder.none,
                                 hintText: 'Location')))),
                 //accepting terms and submit request
                 Step(
-                    title: Text('Submit'),
+                    title: const Text('Submit'),
                     content: Row(children: [
                       Checkbox(
                           activeColor: Colors.red,

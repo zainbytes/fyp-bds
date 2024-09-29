@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp/model/blood_request.dart';
 import 'package:fyp/services/authentication/auth.dart';
 import 'package:fyp/services/firestore/request_store.dart';
 import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
+import 'package:fyp/view/mywidgets/others/circular_indicator.dart';
 import 'package:fyp/view/mywidgets/others/helper_func.dart';
 import 'package:fyp/view/mywidgets/others/notfound.dart';
 
@@ -35,7 +35,7 @@ class CompletedRequest extends StatelessWidget {
             //show active requests
             
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const RedCircularProgress();
           }
         },
       ),
@@ -44,13 +44,13 @@ class CompletedRequest extends StatelessWidget {
 
   Widget completedTile({required BloodRequest request}) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(26),
           boxShadow: [
             BoxShadow(
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
                 blurRadius: 7,
                 color: Colors.grey.withOpacity(0.5))
           ]),
@@ -78,7 +78,7 @@ class CompletedRequest extends StatelessWidget {
               borderRadius: BorderRadius.circular(20)),
           child: Text(
             request.status,
-            style: TextStyle(color: Colors.green),
+            style: const TextStyle(color: Colors.green),
           ),
         ),
       ),

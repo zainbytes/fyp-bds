@@ -37,7 +37,7 @@ class _DonorsPageState extends State<DonorsPage> {
                 );
               }
             } else {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -49,17 +49,17 @@ class _DonorsPageState extends State<DonorsPage> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Gap(10),
+        const Gap(10),
         ListTile(
           onTap: () => bottomSheet(d),
           titleTextStyle: TextStyle(fontSize: 20,color: angryFlamingo),
           title: Text(d.fullName),
-          subtitle: Text('Hello, I am available'),
-          trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.red),
+          subtitle: const Text('Hello, I am available'),
+          trailing: const Icon(Icons.arrow_forward_ios_rounded,color: Colors.red),
         ),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Divider(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: const Divider(
             height: 20,
           ),
         )
@@ -71,12 +71,12 @@ class _DonorsPageState extends State<DonorsPage> {
     var heading =TextStyle(color: angryFlamingo,fontWeight: FontWeight.bold,fontSize: 18);
     return showModalBottomSheet(context: context, builder:(context) {
               return Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Gap(10),
+                    const Gap(10),
                     //name
                     Text('Name:',style: heading,),
                     ListTile(title: Text(d.fullName),),
@@ -85,13 +85,13 @@ class _DonorsPageState extends State<DonorsPage> {
                     Text('Email:',style: heading),
                     ListTile(title: Text(d.email),trailing: IconButton(onPressed: ()async{
                       await Clipboard.setData(ClipboardData(text: d.email));
-                    }, icon: Icon(Icons.copy)),),
+                    }, icon: const Icon(Icons.copy)),),
 
                     //phone no
                     Text('Phone No:',style: heading),
                     ListTile(title: Text(d.phoneNo),trailing: IconButton(onPressed: ()async{
                       await Clipboard.setData(ClipboardData(text: d.phoneNo));
-                    }, icon: Icon(Icons.copy)),),
+                    }, icon: const Icon(Icons.copy)),),
 
                     //description
                     Text('Description:',style: heading),

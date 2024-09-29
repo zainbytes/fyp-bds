@@ -22,7 +22,9 @@ class ViewLink extends StatelessWidget {
               //title
               Text(
                 link.title!,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: GoogleFonts.barlowCondensed(
+                    textStyle: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 28)),
               ),
               const Gap(10),
 

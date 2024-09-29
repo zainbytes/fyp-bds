@@ -5,9 +5,11 @@ import 'package:fyp/services/firestore/usefullink_store.dart';
 import 'package:fyp/view/donation_code.dart';
 import 'package:fyp/view/healthtips.dart';
 import 'package:fyp/view/myrequests.dart';
+import 'package:fyp/view/mywidgets/others/circular_indicator.dart';
 import 'package:fyp/view/profile_page.dart';
 import 'package:fyp/view/useful_link_page.dart';
 import 'package:gap/gap.dart';
+
 
 class HomepageBody extends StatelessWidget {
   const HomepageBody({super.key});
@@ -77,19 +79,20 @@ class HomepageBody extends StatelessWidget {
                   }),
             ],
           ),
-          Gap(10),
+          const Gap(10),
           //title what new
           Container(
-            padding: EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 10),
             width: double.infinity,
             alignment: Alignment.centerLeft,
-            child: Text(
+            child: const Text(
               "Useful links",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ),
 
-          Gap(10),
+          const Gap(10),
           //campaign tile
           Expanded(
             child: FutureBuilder(
@@ -109,7 +112,7 @@ class HomepageBody extends StatelessWidget {
                           }, links[index]));
                 } else {
                   
-                  return Center(child: CircularProgressIndicator());
+                  return const RedCircularProgress();
                 }
               },
             ),
@@ -121,7 +124,7 @@ class HomepageBody extends StatelessWidget {
 
   Widget usefulLinkTile(UsefulLink link, {VoidCallback? ontap}) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         image:  DecorationImage(
@@ -184,7 +187,7 @@ class SpecialButton extends StatelessWidget {
               Text(
                 label,
                 style: TextStyle(
-                    color: Colors.red.shade400, fontWeight: FontWeight.w500),
+                    color: Colors.red.shade400, fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -215,23 +218,23 @@ class RequestCounter extends StatelessWidget {
             children: [
               Text(
                 count!['Total'].toString(),
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              Text('Request generated')
+              const Text('Request generated')
             ],
           ),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(count['Completed'].toString(),
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Text('Completed')
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const Text('Completed')
             ],
           )
         ],
       );
         } else {
-          return Center(child: CircularProgressIndicator(),);
+          return const RedCircularProgress();
         }
         
       },

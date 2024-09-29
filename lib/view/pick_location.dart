@@ -39,7 +39,7 @@ class _LocationPickerState extends State<LocationPicker> {
               
             },
             
-            initialCenter: mark??LatLng(31.5204,74.3587),
+            initialCenter: mark??const LatLng(31.5204,74.3587),
             initialZoom: 10,
             minZoom: 0,
             maxZoom: 19),
@@ -53,10 +53,10 @@ class _LocationPickerState extends State<LocationPicker> {
           MarkerLayer(markers: [
             
             Marker(
-                point: mark ?? LatLng(0,0),
+                point: mark ?? const LatLng(0,0),
                 width: 80,
                 height: 80,
-                child: Icon(
+                child: const Icon(
                   Icons.location_pin,
                   color: Colors.red,
                   size: 50,
@@ -78,7 +78,7 @@ class _LocationPickerState extends State<LocationPicker> {
           setState(() {
           
         });},
-        child: Icon(Icons.location_searching),
+        child: const Icon(Icons.location_searching),
         ),
     );
   }
@@ -89,10 +89,10 @@ class _LocationPickerState extends State<LocationPicker> {
           style: ButtonStyle(
               padding: const MaterialStatePropertyAll(
                   EdgeInsets.symmetric(horizontal: 20, vertical: 15)),
-              foregroundColor: MaterialStatePropertyAll(Colors.red),
+              foregroundColor: const MaterialStatePropertyAll(Colors.red),
               backgroundColor: MaterialStatePropertyAll(Colors.red.shade100)),
           onPressed: onPressed,
-          child: Text('Save')),
+          child: const Text('Save')),
     );
   }
 

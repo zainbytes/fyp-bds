@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fyp/controller/profile_controller.dart';
 import 'package:fyp/model/blood_request.dart';
 import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
+import 'package:fyp/view/mywidgets/others/circular_indicator.dart';
 import 'package:fyp/view/mywidgets/others/helper_func.dart';
 import 'package:fyp/view/mywidgets/others/notfound.dart';
 import 'package:fyp/view/view_map.dart';
@@ -16,7 +16,7 @@ class DonationRecord extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(title: 'Donation history'),
+      appBar: const CustomAppbar(title: 'Donation history'),
       body: FutureBuilder(
         future: ProfileController().getDonationRecord(),
         builder: (context, snapshot) {
@@ -37,7 +37,7 @@ class DonationRecord extends StatelessWidget {
           }
           //while the data is being loading show this
           else {
-            return Center(child: CircularProgressIndicator());
+            return const RedCircularProgress();
           }
         },
       ),
@@ -46,8 +46,8 @@ class DonationRecord extends StatelessWidget {
 
   Widget showDonationTile(BuildContext context, BloodRequest request,int index) {
     return Container(
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
           color: Colors.grey.shade200, borderRadius: BorderRadius.circular(20)),
       child: Column(
@@ -56,11 +56,11 @@ class DonationRecord extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               color: Colors.red,
               borderRadius: BorderRadius.circular(20)),
-            child: Text('Donation # ${index+1}',style: TextStyle(color: Colors.white),)),
+            child: Text('Donation # ${index+1}',style: const TextStyle(color: Colors.white),)),
           const Gap(10),
           info('Requester', request.requester),
           const Gap(5),
@@ -105,11 +105,11 @@ class DonationRecord extends StatelessWidget {
       children: [
 
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
           decoration: BoxDecoration(
               color: Colors.red.shade100,
               borderRadius: BorderRadius.circular(20)),
-          child: Text(title,style: TextStyle(color: Colors.red),),
+          child: Text(title,style: const TextStyle(color: Colors.red),),
         ),
         Expanded(child: Container()),
         GestureDetector(
