@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fyp/controller/login_controller.dart';
 import 'package:fyp/services/validation/validation.dart';
+import 'package:fyp/view/forgotpassword.dart';
 import 'package:fyp/view/mycolors.dart';
 import 'package:fyp/view/mywidgets/homepage/my_textfield.dart';
 import 'package:fyp/view/signuppage.dart';
@@ -59,15 +61,27 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: true,
                 validator: (value) => passwordValidation(value),
               ),
+              
+              const Gap(1),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder:(context) =>const ForgetPasswordPage()));
+                },
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  width: 300,child: Text('Forget password?',style: TextStyle(color: Colors.blue)))
+              ),
               const Gap(10),
           
-              //login button
+    
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
+                  //move to signup page
                   GestureDetector(
                     onTap: () async {
-                      //signup user
+                      
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const SignUpPage(),
                       ));
@@ -77,10 +91,11 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const Gap(20),
+                  //login user
                   GestureDetector(
                     onTap: () async {
                       if (_formkey.currentState!.validate()) {
-                        //login user
+                        
                         await _controllerLogin.loginUser();
                       } else {
                         changeAutoValidation();
@@ -92,7 +107,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-          
+
+            
               const Gap(50),
             ],
           ),

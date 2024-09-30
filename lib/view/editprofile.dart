@@ -58,58 +58,60 @@ class _EditProfileState extends State<EditProfile> {
               setInitialValues(profileController, user);
             }
 
-            return Column(
-              children: [
-                const SizedBox(
-                  width: double.infinity,
-                ),
-                const Gap(20),
-                StatefulBuilder(
-                  builder: (context, update) {
-                    return GestureDetector(
-                        onTap: () async {
-                          var result = await showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const PickAvatar();
-                            },
-                          );
-
-                          update(() {
-                            avatar = result;
-                          });
-                        },
-                        child: RandomAvatar(avatar, width: 150));
-                  },
-                ),
-                const Gap(40),
-                EditTextfield(
-                  textController: profileController.nameEditor,
-                  label: "Name",
-                ),
-                const Gap(20),
-                EditTextfield(
-                  textController: profileController.phoneEditor,
-                  label: "Phone no",
-                ),
-                const Gap(20),
-                EditTextfield(
-                  readOnly: true,
-                  ontap: () async {
-                    var result = await showModalBottomSheet(
-                        context: context,
-                        builder: (context) => const BottomSheetForBlood());
-                    profileController.bloodEditor.text = result ?? 'B+';
-                  },
-                  textController: profileController.bloodEditor,
-                  label: "Blod Group",
-                ),
-                const Gap(20),
-                EditTextfield(
-                  textController: profileController.descriptionEditor,
-                  label: "Description",
-                ),
-              ],
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    width: double.infinity,
+                  ),
+                  const Gap(20),
+                  StatefulBuilder(
+                    builder: (context, update) {
+                      return GestureDetector(
+                          onTap: () async {
+                            var result = await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const PickAvatar();
+                              },
+                            );
+              
+                            update(() {
+                              avatar = result;
+                            });
+                          },
+                          child: RandomAvatar(avatar, width: 150));
+                    },
+                  ),
+                  const Gap(40),
+                  EditTextfield(
+                    textController: profileController.nameEditor,
+                    label: "Name",
+                  ),
+                  const Gap(20),
+                  EditTextfield(
+                    textController: profileController.phoneEditor,
+                    label: "Phone no",
+                  ),
+                  const Gap(20),
+                  EditTextfield(
+                    readOnly: true,
+                    ontap: () async {
+                      var result = await showModalBottomSheet(
+                          context: context,
+                          builder: (context) => const BottomSheetForBlood());
+                      profileController.bloodEditor.text = result ?? 'B+';
+                    },
+                    textController: profileController.bloodEditor,
+                    label: "Blod Group",
+                  ),
+                  const Gap(20),
+                  EditTextfield(
+                    textController: profileController.descriptionEditor,
+                    label: "Description",
+                  ),
+                ],
+              ),
             );
           } else {
             return const RedCircularProgress();

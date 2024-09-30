@@ -35,7 +35,7 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       
       //app bar
-      appBar:  CustomAppbar(title: 'Hello $title',),
+      appBar:  CustomAppbar(title: 'Hello, $title',),
 
       //body
       body: screens[currentScreen],

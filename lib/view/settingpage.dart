@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/services/authentication/auth.dart';
+import 'package:fyp/view/contactus.dart';
 import 'package:fyp/view/editprofile.dart';
 import 'package:fyp/view/mycolors.dart';
 import 'package:gap/gap.dart';
@@ -18,6 +19,14 @@ class _SettingPageState extends State<SettingPage> {
       children: [
         const Gap(30),
         TileForSettingPage(
+            title: "Logout",
+            leading: Icons.logout,
+            trailing: Icons.arrow_forward_ios,
+            onTap: () {
+              Auth().signOut();
+            }),
+        const Gap(20),
+        TileForSettingPage(
             title: "Edit profile",
             leading: Icons.person,
             trailing: Icons.arrow_forward_ios,
@@ -28,15 +37,16 @@ class _SettingPageState extends State<SettingPage> {
             }),
         const Gap(20),
         TileForSettingPage(
-            title: "Logout",
-            leading: Icons.logout,
+            title: "Contact us",
+            leading: Icons.contact_support_rounded,
             trailing: Icons.arrow_forward_ios,
             onTap: () {
-              Auth().signOut();
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>const ContactUs()
+                  ));
             }),
-            const Gap(20),
-
-            
       ],
     );
   }
@@ -64,10 +74,13 @@ class TileForSettingPage extends StatelessWidget {
           color: Colors.grey.shade200, borderRadius: BorderRadius.circular(15)),
       child: ListTile(
         onTap: onTap,
-        leading: Icon(leading,color: angryFlamingo,),
+        leading: Icon(
+          leading,
+          color: angryFlamingo,
+        ),
         title: Text(title),
-        trailing: Icon(trailing),
-      ),
+        trailing: Icon(trailing)
+      )
     );
   }
 }

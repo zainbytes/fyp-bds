@@ -4,6 +4,7 @@ import 'package:fyp/model/appuser.dart';
 import 'package:fyp/services/firestore/appuser_store.dart';
 import 'package:fyp/view/mycolors.dart';
 import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
+import 'package:fyp/view/mywidgets/others/circular_indicator.dart';
 import 'package:fyp/view/mywidgets/others/notfound.dart';
 import 'package:gap/gap.dart';
 
@@ -21,7 +22,7 @@ class _DonorsPageState extends State<DonorsPage> {
     return Scaffold(
         appBar: CustomAppbar(title: "Donors for ${widget.bloodGroup}"),
         body: FutureBuilder(
-          //getting list of Appuser
+          //getting list of donors
           future: AppUserStore().fetchUserWhere(bloodGroup: widget.bloodGroup),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
@@ -37,9 +38,7 @@ class _DonorsPageState extends State<DonorsPage> {
                 );
               }
             } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const RedCircularProgress();
             }
           },
         ));
@@ -67,38 +66,42 @@ class _DonorsPageState extends State<DonorsPage> {
     );
   }
 
-  Future<dynamic> bottomSheet(AppUser d) {
+  Future<dynamic> bottomSheet(AppUser d ) {
     var heading =TextStyle(color: angryFlamingo,fontWeight: FontWeight.bold,fontSize: 18);
-    return showModalBottomSheet(context: context, builder:(context) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context, builder:(context) {
               return Container(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Gap(10),
-                    //name
-                    Text('Name:',style: heading,),
-                    ListTile(title: Text(d.fullName),),
-
-                    //email
-                    Text('Email:',style: heading),
-                    ListTile(title: Text(d.email),trailing: IconButton(onPressed: ()async{
-                      await Clipboard.setData(ClipboardData(text: d.email));
-                    }, icon: const Icon(Icons.copy)),),
-
-                    //phone no
-                    Text('Phone No:',style: heading),
-                    ListTile(title: Text(d.phoneNo),trailing: IconButton(onPressed: ()async{
-                      await Clipboard.setData(ClipboardData(text: d.phoneNo));
-                    }, icon: const Icon(Icons.copy)),),
-
-                    //description
-                    Text('Description:',style: heading),
-                    ListTile(title: Text(d.bloodDescription),),
-                    const Gap(10)
-                
-                  ],
+                padding:  EdgeInsets.only(left: 20,right: 20,top: 20,bottom:MediaQuery.of(context).viewInsets.bottom ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Gap(10),
+                      //name
+                      Text('Name:',style: heading,),
+                      ListTile(title: Text(d.fullName),),
+                  
+                      //email
+                      Text('Email:',style: heading),
+                      ListTile(title: Text(d.email),trailing: IconButton(onPressed: ()async{
+                        await Clipboard.setData(ClipboardData(text: d.email));
+                      }, icon: const Icon(Icons.copy)),),
+                  
+                      //phone no
+                      Text('Phone No:',style: heading),
+                      ListTile(title: Text(d.phoneNo),trailing: IconButton(onPressed: ()async{
+                        await Clipboard.setData(ClipboardData(text: d.phoneNo));
+                      }, icon: const Icon(Icons.copy)),),
+                  
+                      //description
+                      Text('Description:',style: heading),
+                      ListTile(title: Text(d.bloodDescription),),
+                      const Gap(10)
+                  
+                    ],
+                  ),
                 ),
               );
             },);
