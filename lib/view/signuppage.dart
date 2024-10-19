@@ -4,6 +4,7 @@ import 'package:fyp/services/validation/validation.dart';
 import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
 import 'package:fyp/view/mywidgets/homepage/my_textfield.dart';
 import 'package:fyp/view/mywidgets/others/bottomsheet_blood.dart';
+import 'package:fyp/view/pick_location.dart';
 import 'package:gap/gap.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -28,6 +29,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
         appBar: const CustomAppbar(title: 'Create account'),
         body: Form(
             autovalidateMode: _signupClicked
@@ -44,7 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     width: double.infinity,
                   ),
                   Image.asset(
-                    'images/signup.jpg',
+                    'assets/images/signup.jpg',
                     width: 120,
                   ),
                   const Gap(10),
@@ -83,9 +85,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       controller: controllerSignUp.bloodGropuController),
                   const Gap(10),
                   DecoratedTextField(
-                      icon: const Icon(Icons.description_rounded),
-                      label: 'Other blood releated detail',
-                      controller: controllerSignUp.bloodDescriptionContoller),
+                      ontap: () async{
+                       var position=await Navigator.push(context, MaterialPageRoute(builder:(context) => const LocationPicker()));
+                       controllerSignUp.locationContoller.text=position.toString();
+                       print(position);
+                      },
+                      icon: const Icon(Icons.location_on),
+                      label: 'Location',
+                      controller: controllerSignUp.locationContoller),
                   const Gap(10),
                   DecoratedTextField(
                       icon: const Icon(Icons.password_rounded),

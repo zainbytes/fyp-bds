@@ -91,19 +91,14 @@ class _ProfilePageState extends State<ProfilePage> {
       const Text('Blood info',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       const Gap(10),
-      ExpansionTile(
-          expandedAlignment: Alignment.centerLeft,
+      ListTile(
+          
           shape: InputBorder.none,
           leading: const Icon(
             Icons.bloodtype,
             color: Colors.red,
           ),
-          title: Text(currentUser.bloodGroup),
-          children: [
-            Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: Text(currentUser.bloodDescription))
-          ])
+          title: Text(currentUser.bloodGroup))
     ]));
   }
 

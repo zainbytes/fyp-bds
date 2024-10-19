@@ -5,7 +5,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocationPicker extends StatefulWidget {
-  const LocationPicker({super.key});
+  final LatLng? location;
+  const LocationPicker({this.location,super.key});
 
   @override
   State<LocationPicker> createState() => _LocationPickerState();
@@ -14,11 +15,23 @@ class LocationPicker extends StatefulWidget {
 class _LocationPickerState extends State<LocationPicker> {
   LatLng? mark;
   var mapCont =MapController();
+
+  @override
+  void initState() {
+    if (widget.location!=null) {
+      mark=widget.location;
+      
+    }
+    
+    // TODO: implement initState
+    super.initState();
+  }
   
 
   
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: CustomAppbar(
         title: 'Pick location',

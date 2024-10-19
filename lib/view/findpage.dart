@@ -70,6 +70,7 @@ class _FindPageState extends State<FindPage> {
                                       builder: (context) => DonorsPage(
                                         bloodGroup:
                                             requestCont.bloodController.text,
+                                            location: latlonParse(requestCont.locationController.text),
                                       ),
                                     ));
                                   }

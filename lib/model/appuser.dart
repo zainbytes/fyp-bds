@@ -3,14 +3,14 @@ class AppUser {
   String email;
   String phoneNo;
   String bloodGroup;
-  String bloodDescription;
+  String? location;
 
   AppUser({
     required this.fullName,
     required this.email,
     required this.phoneNo,
     required this.bloodGroup,
-    required this.bloodDescription,
+    this.location,
   });
 
   factory AppUser.fromJson(Map<String, dynamic> json) {
@@ -19,7 +19,7 @@ class AppUser {
         email: json['email'],
         phoneNo: json['phoneNo'],
         bloodGroup: json['bloodGroup'],
-        bloodDescription: json['bloodDescription']);
+        location: json['location']??'');
   }
 
   Map<String, dynamic> toJson() {
@@ -28,7 +28,7 @@ class AppUser {
       'email': email,
       'phoneNo': phoneNo,
       'bloodGroup': bloodGroup,
-      'bloodDescription': bloodDescription
+      'location': location
     };
   }
 }

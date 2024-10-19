@@ -20,6 +20,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     var emailController = TextEditingController();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomAppbar(
         title: 'Reset password',
       ),
@@ -34,7 +35,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
             //image
             Image.asset(
               'assets/images/forgot.jpg',
-              width: 150,
+              width: 200,
             ),
             const Gap(20),
 

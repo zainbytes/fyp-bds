@@ -28,7 +28,7 @@ class AppUserStore {
     } catch (e) {
       print(e);
     }
-
+    
     return users;
   }
 
@@ -49,7 +49,7 @@ class AppUserStore {
     user!.fullName =data['name'];
     user.bloodGroup =data['blood'];
     user.phoneNo =data['phone'];
-    user.bloodDescription =data['description'];
+    user.location =data['location'];
 
     await _firestore.collection(_collection).doc(id).update(user.toJson());
   }

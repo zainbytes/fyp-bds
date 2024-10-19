@@ -12,7 +12,7 @@ class ProfileController {
   var nameEditor =TextEditingController();
   var phoneEditor =TextEditingController();
   var bloodEditor =TextEditingController();
-  var descriptionEditor =TextEditingController();
+  var locationEditor =TextEditingController();
 
   Future<AppUser> getCurrentUser() async {
     var id = Auth().currentUser!.uid;
@@ -36,7 +36,7 @@ class ProfileController {
       "name":nameEditor.text,
       "phone":phoneEditor.text,
       "blood":bloodEditor.text,
-      "description":descriptionEditor.text,
+      "location":locationEditor.text,
     };
 
     await AppUserStore().updateUser(id,data);

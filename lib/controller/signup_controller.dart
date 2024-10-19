@@ -8,7 +8,7 @@ class ControllerSignUp {
   var emailController = TextEditingController();
   var phoneNoController = TextEditingController();
   var bloodGropuController = TextEditingController();
-  var bloodDescriptionContoller = TextEditingController();
+  var locationContoller = TextEditingController();
   var passwordController = TextEditingController();
 
   Future createAccount() async {
@@ -17,7 +17,7 @@ class ControllerSignUp {
         email: emailController.text,
         phoneNo: phoneNoController.text,
         bloodGroup: bloodGropuController.text,
-        bloodDescription: bloodDescriptionContoller.text);
+        location: locationContoller.text);
     //create account
     var result = await Auth().signUpWithEmailAndPassword(
         email: emailController.text, password: passwordController.text);
@@ -32,7 +32,7 @@ class ControllerSignUp {
     emailController.dispose();
     phoneNoController.dispose();
     bloodGropuController.dispose();
-    bloodDescriptionContoller.dispose();
+    locationContoller.dispose();
     passwordController.dispose();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fyp/controller/login_controller.dart';
@@ -23,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Form(
         autovalidateMode: _loginClicked
             ? AutovalidateMode.onUserInteraction
@@ -30,26 +32,32 @@ class _LoginPageState extends State<LoginPage> {
         key: _formkey,
         child: SingleChildScrollView(
           child: Column(
+            
             mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            
             children: [
-          
-              Text('Blood Bridge',style: GoogleFonts.outfit(textStyle: TextStyle(
-                fontSize: 42,
-                color: angryFlamingo,
-                fontWeight: FontWeight.w700)),),
+              const SizedBox(width: double.infinity,height: 50,),
+              //title
+              Text(
+                'Blood Bridge',
+                style: GoogleFonts.outfit(
+                    textStyle: TextStyle(
+                        fontSize: 42,
+                        color: angryFlamingo,
+                        fontWeight: FontWeight.w700)),
+              ),
               const Gap(50),
               //image
               Image.asset('assets/images/login.jpg', width: 300),
           
               const Gap(100),
-              const SizedBox(width: double.infinity),
+              
               //email text field
           
               DecoratedTextField(
                 controller: _controllerLogin.emailController,
                 label: "Email",
-                icon:const Icon(Icons.email_rounded),
+                icon: const Icon(Icons.email_rounded),
                 validator: (value) => emailValidation(value),
               ),
               const Gap(10),
@@ -57,59 +65,63 @@ class _LoginPageState extends State<LoginPage> {
               DecoratedTextField(
                 controller: _controllerLogin.passwordController,
                 label: "Password",
-                icon:const Icon(Icons.password_rounded),
+                icon: const Icon(Icons.password_rounded),
                 obscureText: true,
                 validator: (value) => passwordValidation(value),
               ),
-              
+          
               const Gap(1),
+          
+              //forget pasword
               GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder:(context) =>const ForgetPasswordPage()));
-                },
-                child: Container(
-                  alignment: Alignment.centerRight,
-                  width: 300,child: Text('Forget password?',style: TextStyle(color: Colors.blue)))
-              ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ForgetPasswordPage()));
+                  },
+                  child: Container(
+                      padding: EdgeInsets.only(right: 5),
+                      alignment: Alignment.centerRight,
+                      width: 300,
+                      child: Text('Forgot password?',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontStyle: FontStyle.italic)))),
               const Gap(10),
           
-    
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-
-                  //move to signup page
-                  GestureDetector(
-                    onTap: () async {
-                      
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SignUpPage(),
-                      ));
-                    },
-                    child: const DecoratedButton(
-                      label: "SignUp",
-                    ),
-                  ),
-                  const Gap(20),
-                  //login user
-                  GestureDetector(
-                    onTap: () async {
-                      if (_formkey.currentState!.validate()) {
-                        
-                        await _controllerLogin.loginUser();
-                      } else {
-                        changeAutoValidation();
-                      }
-                    },
-                    child: const DecoratedButton(
-                      label: "Login",
-                    ),
-                  ),
-                ],
+              //login user
+          
+              GestureDetector(
+                onTap: () async {
+                  if (_formkey.currentState!.validate()) {
+                    await _controllerLogin.loginUser();
+                  } else {
+                    changeAutoValidation();
+                  }
+                },
+                child: const DecoratedButton(
+                  label: "Login",
+                ),
               ),
-
-            
-              const Gap(50),
+              const Gap(5),
+          
+              //navigate to signup page
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpPage(),
+                        ));
+                  },
+                  child: Text(
+                    "Dont'n have an account",
+                    style: TextStyle(
+                        color: Colors.red, fontStyle: FontStyle.italic),
+                  )),
+          
+              const Gap(30),
             ],
           ),
         ),
@@ -134,15 +146,15 @@ class DecoratedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 120,
+        width: 300,
         height: 45,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: Colors.red, borderRadius: BorderRadius.circular(20)),
+            color: Colors.red, borderRadius: BorderRadius.circular(16)),
         child: Text(
           label,
           style:
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ));
   }
 }

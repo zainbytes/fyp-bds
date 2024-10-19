@@ -186,7 +186,7 @@ class _MyRequestsState extends State<MyRequests> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
-                          DonorsPage(bloodGroup: request.blood),
+                          DonorsPage(bloodGroup: request.blood,location:latlonParse(request.location),),
                     ));
                   },
                   icon: const Wrap(

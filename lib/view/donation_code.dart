@@ -26,10 +26,13 @@ class _DonationCodeState extends State<DonationCode> {
           decoration: BoxDecoration(
               color: Colors.grey.shade300,
               borderRadius: BorderRadius.circular(20)),
-          child: TextField(
-            controller: codeController,
-            decoration: const InputDecoration(
-                border: InputBorder.none, hintText: 'Code here'),
+          child: Padding(
+            padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: TextField(
+              controller: codeController,
+              decoration: const InputDecoration(
+                  border: InputBorder.none, hintText: 'Code here'),
+            ),
           ),
         ),
         const Gap(10),

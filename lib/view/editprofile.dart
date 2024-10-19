@@ -5,7 +5,9 @@ import 'package:fyp/services/shared_pref/shared_helper.dart';
 import 'package:fyp/view/mywidgets/homepage/customappbar.dart';
 import 'package:fyp/view/mywidgets/others/bottomsheet_blood.dart';
 import 'package:fyp/view/mywidgets/others/circular_indicator.dart';
+import 'package:fyp/view/mywidgets/others/helper_func.dart';
 import 'package:fyp/view/mywidgets/others/pickavatar.dart';
+import 'package:fyp/view/pick_location.dart';
 import 'package:gap/gap.dart';
 import 'package:random_avatar/random_avatar.dart';
 
@@ -107,8 +109,16 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   const Gap(20),
                   EditTextfield(
-                    textController: profileController.descriptionEditor,
-                    label: "Description",
+                    ontap: () async{
+                     var position =await Navigator.push(context, MaterialPageRoute(builder:(context) => LocationPicker(
+                      location: latlonParse(user!.location??'0.0,0.0'),
+                     )));
+                     if (position!=null) {
+                       profileController.locationEditor.text=position.toString();
+                     }
+                    },
+                    textController: profileController.locationEditor,
+                    label: "Location",
                   ),
                 ],
               ),
@@ -125,7 +135,7 @@ class _EditProfileState extends State<EditProfile> {
     profileController.nameEditor.text = user.fullName;
     profileController.phoneEditor.text = user.phoneNo;
     profileController.bloodEditor.text = user.bloodGroup;
-    profileController.descriptionEditor.text = user.bloodDescription;
+    profileController.locationEditor.text = 'View on map';
   }
 
   Padding saveButton({required VoidCallback onPressed}) {
