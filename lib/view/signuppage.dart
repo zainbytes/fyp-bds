@@ -29,7 +29,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         appBar: const CustomAppbar(title: 'Create account'),
         body: Form(
             autovalidateMode: _signupClicked
@@ -85,10 +85,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       controller: controllerSignUp.bloodGropuController),
                   const Gap(10),
                   DecoratedTextField(
-                      ontap: () async{
-                       var position=await Navigator.push(context, MaterialPageRoute(builder:(context) => const LocationPicker()));
-                       controllerSignUp.locationContoller.text=position.toString();
-                       print(position);
+                      readOnly: true,
+                      validator: (value) => emailValidation(value),
+                      ontap: () async {
+                        var position = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LocationPicker()));
+                        controllerSignUp.locationContoller.text =
+                            position.toString();
                       },
                       icon: const Icon(Icons.location_on),
                       label: 'Location',
@@ -127,7 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           decoration: BoxDecoration(
                               color: Colors.red,
                               borderRadius: BorderRadius.circular(15)),
-                          child:const Text('Signup',
+                          child: const Text('Signup',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500)))),

@@ -147,12 +147,6 @@ class _DonorsPageState extends State<DonorsPage> {
                       },
                       icon: const Icon(Icons.copy)),
                 ),
-
-                //description
-                Text('Description:', style: heading),
-                ListTile(
-                  title: Text(''),
-                ),
                 const Gap(10)
               ],
             ),

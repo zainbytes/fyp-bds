@@ -12,6 +12,7 @@ class DonationCode extends StatefulWidget {
 class _DonationCodeState extends State<DonationCode> {
   var codeController = TextEditingController();
   var showError = false;
+  var errorText = '';
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,8 +40,8 @@ class _DonationCodeState extends State<DonationCode> {
 
         Visibility(
             visible: showError,
-            child: const Text(
-              'Code is not correct or already used.',
+            child:  Text(
+              errorText,
               style: TextStyle(color: Colors.red),
             )),
 
@@ -54,10 +55,16 @@ class _DonationCodeState extends State<DonationCode> {
                 onPressed: () async {
                   var status = await RequestStore()
                       .updateStatus(requestCode: codeController.text);
-                  if (status) {
+                  if (status==1) {
                     Navigator.of(context).pop();
-                  } else {
+                  } else if(status==-1){
                     showError = true;
+                    errorText="You can't use your own code";
+                    setState(() {});
+                  }
+                  else{
+                    showError = true;
+                    errorText="Code is not correct or already used";
                     setState(() {});
                   }
                 },

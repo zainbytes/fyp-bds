@@ -77,15 +77,21 @@ class _EditProfileState extends State<EditProfile> {
                                 return const PickAvatar();
                               },
                             );
-              
-                            update(() {
-                              avatar = result;
-                            });
+
+                            if (result != null) {
+                              update(() {
+                                avatar = result;
+                              });
+                            }
                           },
                           child: RandomAvatar(avatar, width: 150));
                     },
                   ),
-                  const Gap(40),
+                  const Text(
+                    'Tap avatar to edit',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  const Gap(30),
                   EditTextfield(
                     textController: profileController.nameEditor,
                     label: "Name",
@@ -109,13 +115,18 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   const Gap(20),
                   EditTextfield(
-                    ontap: () async{
-                     var position =await Navigator.push(context, MaterialPageRoute(builder:(context) => LocationPicker(
-                      location: latlonParse(user!.location??'0.0,0.0'),
-                     )));
-                     if (position!=null) {
-                       profileController.locationEditor.text=position.toString();
-                     }
+                    ontap: () async {
+                      var position = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LocationPicker(
+                                    location: latlonParse(
+                                        user!.location ?? '0.0,0.0'),
+                                  )));
+                      if (position != null) {
+                        profileController.locationEditor.text =
+                            position.toString();
+                      }
                     },
                     textController: profileController.locationEditor,
                     label: "Location",
@@ -145,7 +156,7 @@ class _EditProfileState extends State<EditProfile> {
           style: ButtonStyle(
               padding: const MaterialStatePropertyAll(
                   EdgeInsets.symmetric(horizontal: 20, vertical: 15)),
-              foregroundColor:const MaterialStatePropertyAll(Colors.red),
+              foregroundColor: const MaterialStatePropertyAll(Colors.red),
               backgroundColor: MaterialStatePropertyAll(Colors.red.shade100)),
           onPressed: onPressed,
           child: const Text('Save')),

@@ -45,10 +45,11 @@ class RequestStore {
     return request;
   }
 
-  Future<bool> updateStatus({required String requestCode}) async {
-    var flag = false;
+  Future<int> updateStatus({required String requestCode}) async {
+    int flag = 0;
     var docId = '';
     var docStatus = '';
+    var requester = '';
 
     var snap = await _firebase
         .collection(_collection)
@@ -58,21 +59,28 @@ class RequestStore {
       //because we require doc id to update data
       docId = element.id;
       docStatus = element.data()['status'];
+      requester = element.data()['requester'];
     }
 
     if (docId.isNotEmpty && docStatus != 'Completed') {
       var currentUser = Auth().currentUser!.email;
-      await _firebase.collection(_collection).doc(docId).update({
-        'status': 'Completed',
-        'donor': currentUser,
-        'completedOn': Timestamp.now()
-      });
-      flag = true;
+      if (requester != currentUser) {
+        await _firebase.collection(_collection).doc(docId).update({
+          'status': 'Completed',
+          'donor': currentUser,
+          'completedOn': Timestamp.now()
+        });
+        //sucessful
+        flag = 1;
+      }
+      //You cant use your own code
+      flag=-1;
     }
+    //code is wrong or already used
     return flag;
   }
 
-  Future<Map<dynamic,int>> getCount() async {
+  Future<Map<dynamic, int>> getCount() async {
     var totalCount = await _firebase.collection(_collection).count().get();
     var completedCount = await _firebase
         .collection(_collection)
@@ -80,9 +88,9 @@ class RequestStore {
         .count()
         .get();
 
-        return {
-          'Total':totalCount.count??0,
-          'Completed': completedCount.count??0
-          };
+    return {
+      'Total': totalCount.count ?? 0,
+      'Completed': completedCount.count ?? 0
+    };
   }
 }
