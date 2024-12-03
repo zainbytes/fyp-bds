@@ -46,7 +46,7 @@ String? bloodGroupValidation(String? value) {
 }
 
 String? emptyValidation(String? value) {
-  if (value == null || value.isEmpty) {
+  if (value == null || value.isEmpty||value=="null") {
     return "This field can't be empty. ";
   }
   return null;

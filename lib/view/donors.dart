@@ -31,13 +31,16 @@ class _DonorsPageState extends State<DonorsPage> {
           future: AppUserStore().fetchUserWhere(bloodGroup: widget.bloodGroup),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.data!.isEmpty) {
+              if (snapshot.data==null) {
                 return const NotFound();
               } else {
+                
+                var sortedMap = sortByDistance(snapshot.data!);
                 return ListView.builder(
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
-                    var sortedMap = sortByDistance(snapshot.data!);
+                    
+                    
                     return donorTile(sortedMap.entries.elementAt(index));
                   },
                 );
@@ -56,9 +59,14 @@ class _DonorsPageState extends State<DonorsPage> {
       var userLoc = latlonParse(user.location!);
       var distance = Geolocator.distanceBetween(widget.location.latitude,
           widget.location.longitude, userLoc.latitude, userLoc.longitude);
-      var distanceInKm = double.parse((distance / 1000).toStringAsFixed(2));
+      var distanceInKm = (distance / 1000);
+      if (mapWithDistance.containsKey(distanceInKm)) {
+        distanceInKm+=0.001;
+      }
       mapWithDistance[distanceInKm] = user;
+      
     }
+    
 
     var sortedBykey = mapWithDistance.entries.toList()
       ..sort((a, b) => a.key.compareTo(b.key));
@@ -82,7 +90,7 @@ class _DonorsPageState extends State<DonorsPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text('Hello, I am available'),
-              Text('Approx. ${d.key} KM far',style: TextStyle(color: Colors.grey),)
+              Text('Approx. ${d.key.toStringAsFixed(2)} KM far',style: TextStyle(color: Colors.grey),)
             ],
           ),
           trailing:

@@ -84,9 +84,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       validator: (value) => bloodGroupValidation(value),
                       controller: controllerSignUp.bloodGropuController),
                   const Gap(10),
+                  //location
                   DecoratedTextField(
                       readOnly: true,
-                      validator: (value) => emailValidation(value),
+                      validator: (value) => emptyValidation(value),
                       ontap: () async {
                         var position = await Navigator.push(
                             context,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/services/authentication/auth.dart';
+import 'package:fyp/view/aboutus.dart';
 import 'package:fyp/view/contactus.dart';
 import 'package:fyp/view/editprofile.dart';
 import 'package:fyp/view/mycolors.dart';
+import 'package:fyp/view/terms.dart';
 import 'package:gap/gap.dart';
 
 class SettingPage extends StatefulWidget {
@@ -41,12 +43,27 @@ class _SettingPageState extends State<SettingPage> {
             leading: Icons.contact_support_rounded,
             trailing: Icons.arrow_forward_ios,
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>const ContactUs()
-                  ));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ContactUs()));
             }),
+        const Gap(20),
+        TileForSettingPage(
+            title: "About us",
+            leading: Icons.info,
+            trailing: Icons.arrow_forward_ios,
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AboutUs()));
+            }),
+            const Gap(20),
+        TileForSettingPage(
+            title: "Term & Conditions",
+            leading: Icons.document_scanner,
+            trailing: Icons.arrow_forward_ios,
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Terms()));
+            })
       ],
     );
   }
@@ -68,19 +85,18 @@ class TileForSettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      decoration: BoxDecoration(
-          color: Colors.grey.shade200, borderRadius: BorderRadius.circular(15)),
-      child: ListTile(
-        onTap: onTap,
-        leading: Icon(
-          leading,
-          color: angryFlamingo,
-        ),
-        title: Text(title),
-        trailing: Icon(trailing)
-      )
-    );
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(15)),
+        child: ListTile(
+            onTap: onTap,
+            leading: Icon(
+              leading,
+              color: angryFlamingo,
+            ),
+            title: Text(title),
+            trailing: Icon(trailing)));
   }
 }
