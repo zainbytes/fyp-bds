@@ -105,6 +105,7 @@ class DonationRecord extends StatelessWidget {
       children: [
 
         Container(
+          width: 120,
           padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
           decoration: BoxDecoration(
               color: Colors.red.shade100,

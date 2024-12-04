@@ -132,6 +132,7 @@ class _MyRequestsState extends State<MyRequests> {
                         return AlertDialog(
                           title: const Text('Request info'),
                           content: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(

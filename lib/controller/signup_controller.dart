@@ -21,10 +21,11 @@ class ControllerSignUp {
     //create account
     var result = await Auth().signUpWithEmailAndPassword(
         email: emailController.text, password: passwordController.text);
-    if (result) {
+    if (result.user!=null) {
       //write data to firestore
       await AppUserStore().writeUserToStore(user, Auth().currentUser!.uid);
     }
+    return result;
   }
 
   dispose() {

@@ -23,6 +23,7 @@ dependencies:
   introduction_screen: ^3.1.14
   latlong2: ^0.9.1
   random_avatar: ^0.0.8
+  share_plus: ^10.0.0
   shared_preferences: ^2.2.3
 
 dev_dependencies:

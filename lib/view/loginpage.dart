@@ -95,7 +95,17 @@ class _LoginPageState extends State<LoginPage> {
               GestureDetector(
                 onTap: () async {
                   if (_formkey.currentState!.validate()) {
-                    await _controllerLogin.loginUser();
+                    try {
+                      await _controllerLogin.loginUser();
+                    } catch (e) {
+                      return showDialog(context: context, builder:(context) {
+                        return AlertDialog(
+                          title: Center(child: Text("Login error")),
+                          content: Text("Incorrect email or password"),
+                        );
+                      },);
+                    }
+                    
                   } else {
                     changeAutoValidation();
                   }
@@ -116,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                         ));
                   },
                   child: Text(
-                    "Dont'n have an account",
+                    "Create new account",
                     style: TextStyle(
                         color: Colors.red, fontStyle: FontStyle.italic),
                   )),

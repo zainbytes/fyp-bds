@@ -151,7 +151,7 @@ class _FindPageState extends State<FindPage> {
                               decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.description_rounded),
                                   border: InputBorder.none,
-                                  hintText: 'Other Blood releated detail')))
+                                  hintText: 'How much do you require?')))
                     ])),
                 //location where blood needed
                 Step(

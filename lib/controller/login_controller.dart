@@ -6,6 +6,6 @@ class ControllerLogin {
   var passwordController=TextEditingController();
 
   loginUser() {
-    Auth().logInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+    return Auth().logInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
   }
 }

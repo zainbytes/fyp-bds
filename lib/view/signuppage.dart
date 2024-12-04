@@ -114,8 +114,18 @@ class _SignUpPageState extends State<SignUpPage> {
                         if (_formkey.currentState!.validate()) {
                           //create account with email & pasword
                           //store user to database
+                          try {
+                            await controllerSignUp.createAccount();
+                          } catch (e) {
+                            return showDialog(context: context, builder:(context) {
+                              return AlertDialog(
+                                title: Center(child: Text('Signup error')),
+                                content: Text('Email already used'),
+                              );
+                            },);
+                          }
 
-                          await controllerSignUp.createAccount();
+                          
                           if (context.mounted) {
                             Navigator.pop(context);
                           }
